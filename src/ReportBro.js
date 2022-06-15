@@ -1273,52 +1273,13 @@ export default class ReportBro {
         // clear all previous errors
         this.clearErrors();
 
-        // use headers from properties and set basic auth header if basic auth info is available
-        let headers = requestParams.reportServerHeaders;
-        if (requestParams.reportServerBasicAuth) {
-            headers['Authorization'] = 'Basic ' + btoa(
-                requestParams.reportServerBasicAuth.username + ':' + requestParams.reportServerBasicAuth.password);
-        }
-
         this.showLoading();
-        $.ajax(requestParams.reportServerUrl, {
-            data: JSON.stringify({
-                report: this.getReport(),
-                outputFormat: DocumentProperties.outputFormat.pdf,
-                data: data,
-                isTestData: isTestData
-            }),
-            type: "PUT", contentType: "application/json",
-            headers: headers,
-            timeout: requestParams.reportServerTimeout,
-            crossDomain: requestParams.reportServerUrlCrossDomain,
-            success: function(data) {
-                self.hideLoading();
-                if (data.substr(0, 4) === 'key:') {
-                    self.reportKey = data.substr(4);
-                    self.getDocument().openPdfPreviewTab(
-                        requestParams.reportServerUrl + '?key=' + self.reportKey + '&outputFormat=pdf', headers);
-                } else {
-                    self.reportKey = null;
-                    try {
-                        let obj = JSON.parse(data);
-                        if (obj.errors.length > 0) {
-                            self.processErrors(obj.errors, false);
-                        }
-                    } catch (e) {
-                        alert('preview failed');
-                    }
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                self.hideLoading();
-                if (textStatus === "timeout") {
-                    alert('preview failed (timeout)');
-                } else {
-                    alert('preview failed');
-                }
-            }
-        });
+
+        self.getDocument().openPdfPreviewTab(requestParams.reportServerUrl);
+    }
+
+    setReportServerUrl(url) {
+        this.properties.reportServerUrl = url;
     }
 
     getRequestParameters() {
