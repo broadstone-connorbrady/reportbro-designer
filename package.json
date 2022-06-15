@@ -29,8 +29,7 @@
   "main": "dist/reportbro.js",
   "scripts": {
     "build": "webpack",
-    "build-prod": "webpack --config webpack.config.prod.js && uglifyjs ./dist/reportbro.js --comments '/Copyright/' -c -m -o ./dist/reportbro.min.js --source-map filename=\"'./dist/reportbro.min.js.map'\"",
-    "postpack": "tar2zip reportbro-designer-*.tgz"
+    "build-prod": "webpack --config webpack.config.prod.js && uglifyjs ./dist/reportbro.js --comments '/Copyright/' -c -m -o ./dist/reportbro.min.js --source-map filename=\"'./dist/reportbro.min.js.map'\""
   },
   "dependencies": {
     "@babel/preset-env": "^7.17.12",
