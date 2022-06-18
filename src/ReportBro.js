@@ -88,6 +88,7 @@ export default class ReportBro {
             reportServerUrl: 'https://www.reportbro.com/report/run',
             reportServerUrlCrossDomain: false,
             requestCallback: null,
+            previewCallback: null,
             saveCallback: null,
             selectCallback: null,
             showGrid: true,
