@@ -70,11 +70,7 @@ export default class MenuPanel {
         panelLeft.append($(`<button id="rbro_menu_preview" class="rbroButton rbroMenuButton" title="${this.rb.getLabel('menuPreviewTip')}">
                 <span class="rbroIcon-play"></span><span class="${menuButtonClass}">${this.rb.getLabel('menuPreview')}</span></button>`)
             .click(event => {
-                if(this.rb.previewCallback) {
-                    this.rb.previewCallback();
-                } else {
-                    this.rb.preview();
-                }
+                this.rb.preview();
             })
         );
         panel.append(panelLeft);
