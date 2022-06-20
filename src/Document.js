@@ -406,14 +406,20 @@ export default class Document {
             xhr.send();
         } else {
             // easy way (no custom headers), set data url for pdf object tag
-            const pdfObj =
-                '<object data="' + reportUrl + '" type="application/pdf" width="100%" height="100%"></object>';
-            $('#rbro_document_pdf_preview').append(pdfObj);
+            try {
+                const pdfObj =
+                    '<object data="' + reportUrl + '" type="application/pdf" width="100%" height="100%"></object>';
+                $('#rbro_document_pdf_preview').append(pdfObj);
+            } catch (e) {
+                // Catch the crap exception here
+            }
         }
 
         this.pdfPreviewExists = true;
         this.setDocumentTab(Document.tab.pdfPreview);
         this.updateDocumentTabs();
+
+        this.rb.hideLoading();
     }
 
     closePdfPreviewTab() {
